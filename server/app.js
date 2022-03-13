@@ -1,9 +1,28 @@
+const dotenv = require('dotenv');
 const express = require('express');
 const { graphqlHTTP } = require('express-graphql');
 const schema = require('./schemas/graphql.schema');
+const mongoose = require('mongoose');
+
+if (process.env.NODE_ENV !== 'production') {
+  dotenv.config({ path: '../.env.local' });
+  console.info('INFO: Loaded .env.local');
+}
 
 const app = express();
 
+// DB
+const dbName = process.env.SERVER_DB_NAME;
+const dbUser = process.env.SERVER_DB_USER;
+const dbSecret = process.env.SERVER_DB_SECRET;
+
+const dbConnection = `mongodb+srv://${dbUser}:${dbSecret}@cluster0-graphql.j5j19.mongodb.net/${dbName}?retryWrites=true&w=majority`;
+mongoose.connect(dbConnection);
+mongoose.connection.once('open', () => {
+  console.info(`INFO: Connected to DB: ${dbName}`);
+});
+
+// GraphQL
 app.use(
   '/graphql',
   graphqlHTTP({
@@ -12,6 +31,7 @@ app.use(
   })
 );
 
-app.listen(4000, () => {
-  console.info('INFO: Server listening on port 4000.');
+// Start Server
+app.listen(process.env.SERVER_PORT, () => {
+  console.info(`INFO: Server listening on port ${process.env.SERVER_PORT}.`);
 });
