@@ -5,7 +5,7 @@ const schema = require('./schemas/graphql.schema');
 const mongoose = require('mongoose');
 
 if (process.env.NODE_ENV !== 'production') {
-  dotenv.config({ path: '../.env.local' });
+  dotenv.config({ path: '.env.local' });
   console.info('INFO: Loaded .env.local');
 }
 
@@ -15,6 +15,7 @@ const app = express();
 const dbName = process.env.SERVER_DB_NAME;
 const dbUser = process.env.SERVER_DB_USER;
 const dbSecret = process.env.SERVER_DB_SECRET;
+console.log(dbName);
 
 const dbConnection = `mongodb+srv://${dbUser}:${dbSecret}@cluster0-graphql.j5j19.mongodb.net/${dbName}?retryWrites=true&w=majority`;
 mongoose.connect(dbConnection);
@@ -27,7 +28,7 @@ app.use(
   '/graphql',
   graphqlHTTP({
     schema,
-    graphiql: true,
+    graphiql: true
   })
 );
 
