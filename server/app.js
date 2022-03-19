@@ -3,6 +3,7 @@ const express = require('express');
 const { graphqlHTTP } = require('express-graphql');
 const schema = require('./schemas/graphql.schema');
 const mongoose = require('mongoose');
+const cors = require('cors');
 
 if (process.env.NODE_ENV !== 'production') {
   dotenv.config({ path: '.env.local' });
@@ -11,11 +12,13 @@ if (process.env.NODE_ENV !== 'production') {
 
 const app = express();
 
+// CORS
+app.use(cors({ origin: 'http://localhost:3000' }));
+
 // DB
 const dbName = process.env.SERVER_DB_NAME;
 const dbUser = process.env.SERVER_DB_USER;
 const dbSecret = process.env.SERVER_DB_SECRET;
-console.log(dbName);
 
 const dbConnection = `mongodb+srv://${dbUser}:${dbSecret}@cluster0-graphql.j5j19.mongodb.net/${dbName}?retryWrites=true&w=majority`;
 mongoose.connect(dbConnection);
