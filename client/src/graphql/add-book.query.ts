@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client';
+import { Book } from '../models/book.model';
 
 export interface AddBookResponse {
-  id: string;
-  name: string;
+  addBook: Book;
 }
 
 export const addBookMutation = gql`
@@ -10,6 +10,12 @@ export const addBookMutation = gql`
     addBook(name: $name, genre: $genre, authorId: $authorId) {
       id
       name
+      genre
+      author {
+        id
+        name
+        dob
+      }
     }
   }
 `;
