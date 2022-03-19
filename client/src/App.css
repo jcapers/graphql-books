@@ -1,5 +1,5 @@
 .app-container {
-  @apply flex h-screen flex-col items-start bg-gray-300;
+  @apply flex h-screen flex-col items-start bg-gradient-to-l from-cyan-800 via-black to-fuchsia-800;
 }
 
 .fluid-container {
