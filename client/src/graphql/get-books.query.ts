@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 import { Book } from '../models/book.model';
 
-export interface BookData {
+export interface BooksData {
   books: Book[];
 }
 

@@ -1,9 +1,9 @@
 import { useQuery } from '@apollo/client';
 import { useCallback } from 'react';
-import { BookData, getBooksQuery } from '../../graphql/get-books.query';
+import { BooksData, getBooksQuery } from '../../graphql/get-books.query';
 
 export default function BookList() {
-  const { loading, error, data } = useQuery<BookData>(getBooksQuery);
+  const { loading, error, data } = useQuery<BooksData>(getBooksQuery);
 
   const renderBooks = useCallback(() => {
     if (data?.books && data?.books.length > 0) {
@@ -19,8 +19,8 @@ export default function BookList() {
   }, [data]);
 
   return (
-    <div className="my-8 rounded bg-white p-4 shadow">
-      <h2 className="text-2xl">Books</h2>
+    <div className="space-y-4 rounded bg-white p-8 shadow">
+      <h2 className="text-2xl font-bold text-gray-700">Books</h2>
       {loading && (
         <div>
           <p>Loading books...</p>
@@ -29,11 +29,12 @@ export default function BookList() {
 
       {error && (
         <div className="text-red-500">
+          <p>An error occured while loading books...</p>
           <p>{error.message}</p>
         </div>
       )}
 
-      {data?.books && <div>{renderBooks()}</div>}
+      {!loading && <div>{renderBooks()}</div>}
     </div>
   );
 }

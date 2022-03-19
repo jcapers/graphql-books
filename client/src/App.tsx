@@ -1,4 +1,5 @@
 import './App.css';
+import AddBook from './components/AddBook/AddBook';
 import BookList from './components/BookList/BookList';
 
 function App() {
@@ -9,9 +10,14 @@ function App() {
           <h1 className="text-2xl lg:text-4xl">GraphQL Books</h1>
         </div>
       </header>
-      <main className="w-full">
-        <div className="fluid-container">
+      <main className="mt-16 w-full">
+        <div className="fluid-container mb-16">
           <BookList />
+        </div>
+        <div className="fluid-container grid grid-cols-1 gap-10 sm:grid-cols-2">
+          <div className="col-span-1">
+            <AddBook />
+          </div>
         </div>
       </main>
     </div>
