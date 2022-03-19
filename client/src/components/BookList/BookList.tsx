@@ -1,10 +1,22 @@
 import { useQuery } from '@apollo/client';
+import { useCallback } from 'react';
 import { BookData, getBooksQuery } from '../../graphql/get-books.query';
 
 export default function BookList() {
   const { loading, error, data } = useQuery<BookData>(getBooksQuery);
 
-  console.log(data);
+  const renderBooks = useCallback(() => {
+    if (data?.books && data?.books.length > 0) {
+      return (
+        <ul id="book-list">
+          {data.books.map(book => (
+            <li key={`book-${book.id}`}>{book.name}</li>
+          ))}
+        </ul>
+      );
+    }
+    return <p>No books found...</p>;
+  }, [data]);
 
   return (
     <div className="my-8 rounded bg-white p-4 shadow">
@@ -21,15 +33,7 @@ export default function BookList() {
         </div>
       )}
 
-      {data?.books && (
-        <div>
-          <ul id="book-list">
-            {data.books.map(book => (
-              <li>{book.name}</li>
-            ))}
-          </ul>
-        </div>
-      )}
+      {data?.books && <div>{renderBooks()}</div>}
     </div>
   );
 }
