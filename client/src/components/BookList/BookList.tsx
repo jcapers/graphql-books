@@ -2,9 +2,19 @@ import { useQuery } from '@apollo/client';
 import { useCallback } from 'react';
 import { BooksData, getBooksQuery } from '../../graphql/get-books.query';
 
+/**
+ * Book list component shows all books from data.
+ */
 export default function BookList() {
+  /**
+   * Apollo client graphql states and data respnse.
+   */
   const { loading, error, data } = useQuery<BooksData>(getBooksQuery);
 
+  /**
+   * Render book list if there are books available in data.
+   * Otherwise, tell user no books were found.
+   */
   const renderBooks = useCallback(() => {
     if (data?.books && data?.books.length > 0) {
       return (

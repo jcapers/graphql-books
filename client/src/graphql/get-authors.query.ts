@@ -10,11 +10,6 @@ export const getAuthorsQuery = gql`
     authors {
       id
       name
-      dob
-      books {
-        id
-        name
-      }
     }
   }
 `;
