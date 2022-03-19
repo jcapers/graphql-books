@@ -19,7 +19,7 @@ export default function BookList() {
   }, [data]);
 
   return (
-    <div className="space-y-4 rounded bg-white p-8 shadow">
+    <div className="space-y-4 rounded-lg bg-white p-8 shadow">
       <h2 className="text-2xl font-bold text-gray-700">Books</h2>
       {loading && (
         <div>

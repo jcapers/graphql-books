@@ -6,6 +6,7 @@ import { Author } from '../../models/author.model';
 
 export default function AddBook() {
   const { loading, error, data } = useQuery<AuthorsData>(getAuthorsQuery);
+
   const sortedAuthors = useMemo(() => {
     if (data?.authors) {
       const authors: Author[] = [...data.authors];
@@ -15,7 +16,7 @@ export default function AddBook() {
   }, [data]);
 
   return (
-    <div className="space-y-2 rounded bg-white p-8 shadow">
+    <div className="space-y-2 rounded-lg bg-white p-8 shadow">
       <h2 className="text-2xl font-bold text-gray-700">Add Books</h2>
       {error && (
         <div className="text-red-500">
@@ -49,6 +50,14 @@ export default function AddBook() {
             {!loading && sortedAuthors.map(author => <option key={author.id}>{author.name}</option>)}
           </select>
         </div>
+
+        <button
+          className="mt-2 rounded bg-teal-600 py-1 px-4 text-white shadow hover:opacity-90 hover:shadow-teal-500/50 focus:ring-2"
+          id="add-book-btn"
+          type="submit"
+        >
+          Add Book
+        </button>
       </form>
     </div>
   );
