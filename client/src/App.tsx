@@ -1,21 +1,19 @@
 import './App.css';
-
-import React from 'react';
-
-import logo from './logo.svg';
+import BookList from './components/BookList/BookList';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a className="App-link" href="https://reactjs.org" target="_blank" rel="noopener noreferrer">
-          Learn React
-        </a>
+    <div className="app-container">
+      <header className="sticky top-0 z-50 w-full bg-zinc-900 py-4 text-white">
+        <div className="fluid-container">
+          <h1 className="text-2xl lg:text-4xl">GraphQL Books</h1>
+        </div>
       </header>
+      <main className="w-full">
+        <div className="fluid-container">
+          <BookList />
+        </div>
+      </main>
     </div>
   );
 }
