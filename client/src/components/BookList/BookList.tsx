@@ -1,6 +1,7 @@
 import { useQuery } from '@apollo/client';
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import { BooksData, getBooksQuery } from '../../graphql/get-books.query';
+import BookDetails from '../BookDetails/BookDetails';
 
 /**
  * Book list component shows all books from data.
@@ -11,6 +12,12 @@ export default function BookList() {
    */
   const { loading, error, data } = useQuery<BooksData>(getBooksQuery);
 
+  const [selectedBook, setSelectedBook] = useState<string | null>(null);
+
+  const handleBookClick = (id: string) => (e: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
+    setSelectedBook(id);
+  };
+
   /**
    * Render book list if there are books available in data.
    * Otherwise, tell user no books were found.
@@ -20,7 +27,9 @@ export default function BookList() {
       return (
         <ul id="book-list">
           {data.books.map(book => (
-            <li key={`book-${book.id}`}>{book.name}</li>
+            <li key={`book-${book.id}`} onClick={handleBookClick(book.id)}>
+              {book.name}
+            </li>
           ))}
         </ul>
       );
@@ -29,22 +38,28 @@ export default function BookList() {
   }, [data]);
 
   return (
-    <div className="space-y-4 rounded-lg bg-white p-8 shadow">
-      <h2 className="text-2xl font-bold text-gray-700">Books</h2>
-      {loading && (
-        <div>
-          <p>Loading books...</p>
-        </div>
-      )}
+    <div className="space-y-12">
+      <div>
+        <h2 className="text-2xl font-bold text-gray-700">Books</h2>
+        {loading && (
+          <div>
+            <p>Loading books...</p>
+          </div>
+        )}
 
-      {error && (
-        <div className="text-red-500">
-          <p>An error occured while loading books...</p>
-          <p>{error.message}</p>
-        </div>
-      )}
+        {error && (
+          <div className="text-red-500">
+            <p>An error occured while loading books...</p>
+            <p>{error.message}</p>
+          </div>
+        )}
 
-      {!loading && <div>{renderBooks()}</div>}
+        {!loading && <div>{renderBooks()}</div>}
+      </div>
+
+      <div className="rounded border bg-white shadow">
+        <BookDetails bookId={selectedBook} />
+      </div>
     </div>
   );
 }

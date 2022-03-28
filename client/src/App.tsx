@@ -11,10 +11,10 @@ function App() {
         </div>
       </header>
       <main className="mt-16 w-full">
-        <div className="fluid-container mb-16">
+        <div className="fluid-container mb-12">
           <BookList />
         </div>
-        <div className="fluid-container grid grid-cols-1 gap-10 sm:grid-cols-2">
+        <div className="fluid-container mb-16 grid grid-cols-1 gap-10 sm:grid-cols-2">
           <div className="col-span-1">
             <AddBook />
           </div>

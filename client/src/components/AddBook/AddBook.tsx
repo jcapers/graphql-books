@@ -3,7 +3,7 @@ import { useMutation, useQuery } from '@apollo/client';
 import { AuthorsData, getAuthorsQuery } from '../../graphql/get-authors.query';
 import React, { useMemo, useState } from 'react';
 import { Author } from '../../models/author.model';
-import { addBookMutation, AddBookResponse } from '../../graphql/add-book.query';
+import { addBookMutation, AddBookResponse, AddBookVars } from '../../graphql/add-book.query';
 import { BooksData, getBooksQuery } from '../../graphql/get-books.query';
 
 interface NewBookInputs {
@@ -30,26 +30,26 @@ export default function AddBook() {
    *
    * Update to write cache required as the mutation does not return entire set of books.
    */
-  const [addBook, { data: addBookData, loading: addBookLoading, error: addBookError }] = useMutation<AddBookResponse>(
-    addBookMutation,
-    {
-      update(cache, { data }) {
-        const newBookResponse = data?.addBook;
-        const existingBooks = cache.readQuery<BooksData>({
-          query: getBooksQuery
-        });
+  const [addBook, { data: addBookData, loading: addBookLoading, error: addBookError }] = useMutation<
+    AddBookResponse,
+    AddBookVars
+  >(addBookMutation, {
+    update(cache, { data }) {
+      const newBookResponse = data?.addBook;
+      const existingBooks = cache.readQuery<BooksData>({
+        query: getBooksQuery
+      });
 
-        if (existingBooks && newBookResponse) {
-          cache.writeQuery({
-            query: getBooksQuery,
-            data: {
-              books: [...existingBooks?.books, newBookResponse]
-            }
-          });
-        }
+      if (existingBooks && newBookResponse) {
+        cache.writeQuery({
+          query: getBooksQuery,
+          data: {
+            books: [...existingBooks?.books, newBookResponse]
+          }
+        });
       }
     }
-  );
+  });
 
   /**
    * Sorted list of authors from data.

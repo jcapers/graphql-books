@@ -4,6 +4,6 @@ export interface Author {
   __typename: 'Author';
   id: string;
   name: string;
-  dob: number;
+  dob?: number;
   books?: Book;
 }
