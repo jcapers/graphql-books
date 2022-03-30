@@ -14,8 +14,6 @@ export default function BookDetails({ bookId = null }: Props) {
    */
   const { loading, error, data } = useQuery<BookDetailResult>(getBookDetailsQuery, { variables: { id: bookId } });
 
-  console.log(data);
-
   return (
     <div id="book-details">
       {data?.book ? (

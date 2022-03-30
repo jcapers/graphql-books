@@ -18,29 +18,10 @@ export default function BookList() {
     setSelectedBook(id);
   };
 
-  /**
-   * Render book list if there are books available in data.
-   * Otherwise, tell user no books were found.
-   */
-  const renderBooks = useCallback(() => {
-    if (data?.books && data?.books.length > 0) {
-      return (
-        <ul id="book-list">
-          {data.books.map(book => (
-            <li key={`book-${book.id}`} onClick={handleBookClick(book.id)}>
-              {book.name}
-            </li>
-          ))}
-        </ul>
-      );
-    }
-    return <p>No books found...</p>;
-  }, [data]);
-
   return (
     <div className="space-y-12">
       <div>
-        <h2 className="text-2xl font-bold text-gray-700">Books</h2>
+        <h2 className="my-4 text-4xl font-bold text-white">Books</h2>
         {loading && (
           <div>
             <p>Loading books...</p>
@@ -54,7 +35,22 @@ export default function BookList() {
           </div>
         )}
 
-        {!loading && <div>{renderBooks()}</div>}
+        {!loading && data?.books && data.books.length > 0 && (
+          <div>
+            <ul id="book-list" className="grid grid-cols-2 gap-5 lg:grid-cols-12">
+              {data.books.map(book => (
+                <li
+                  key={`book-${book.id}`}
+                  className={`col-span-1 h-10 cursor-pointer bg-white px-4 py-2 text-center text-sm 
+                            hover:bg-indigo-100 hover:shadow-indigo-500 lg:col-span-3`}
+                  onClick={handleBookClick(book.id)}
+                >
+                  {book.name}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
       </div>
 
       <div className="rounded border bg-white shadow">

@@ -1,4 +1,5 @@
 import './App.css';
+import AddAuthor from './components/AddAuthor/AddAuthor';
 import AddBook from './components/AddBook/AddBook';
 import BookList from './components/BookList/BookList';
 
@@ -17,6 +18,9 @@ function App() {
         <div className="fluid-container mb-16 grid grid-cols-1 gap-10 sm:grid-cols-2">
           <div className="col-span-1">
             <AddBook />
+          </div>
+          <div className="col-span-1">
+            <AddAuthor />
           </div>
         </div>
       </main>

@@ -1,0 +1,11 @@
+.field-group {
+  @apply mb-2 flex flex-col space-y-1;
+}
+
+.label {
+  @apply text-lg font-bold text-gray-700;
+}
+
+.input {
+  @apply rounded-lg border border-gray-700 px-2;
+}
