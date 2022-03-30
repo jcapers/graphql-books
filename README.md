@@ -2,7 +2,9 @@
 
 Simple bit of NodeJS + React learning/playing around with GraphQL.
 
-Basically a CRUD app for books and authors.
+Basically a CRUD app for books and authors. Not a pretty app, but the goal was to learn GraphQL!
+
+Database under the hood uses MongoDB Atlas. See `.env.template` for required env variables.
 
 ## GraphQL Operations
 
